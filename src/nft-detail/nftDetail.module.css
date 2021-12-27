@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+}
+
+.imgContainer {
+  width: 30em;
+  height: 18em;
+  margin-top: 2em;
+  margin-left: 2em;
+  border-radius: 0.8em;
+}
+
+.nftImg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.rightContainer {
+}
+
+.nftInfoContainer {
+}
+
+.buyBtn {
+}

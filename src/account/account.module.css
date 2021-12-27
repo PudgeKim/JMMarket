@@ -1,0 +1,26 @@
+.nftCards {
+  display: flex;
+}
+
+.connectBtn {
+  width: 12em;
+  height: 5.5em;
+  border: 1px solid rgb(21, 178, 229);
+  border-radius: 0.8em;
+  margin: 1em auto;
+  text-align: center;
+  background-color: #eff9fd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.connectText {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.ownNftText {
+  margin-left: 0.4em;
+  margin-bottom: 0;
+}

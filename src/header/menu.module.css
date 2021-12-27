@@ -1,0 +1,17 @@
+.menu {
+  flex-basis: 45%;
+}
+
+.menuList {
+  display: flex;
+  list-style-type: none;
+  justify-content: right;
+  color: #7a7574;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+li {
+  margin-right: 1em;
+  cursor: pointer;
+}

@@ -1,0 +1,25 @@
+.selectBox {
+  width: 10em;
+  height: 2em;
+  border: 1px solid red;
+  margin: 1em 0.4em;
+}
+
+.sellNftText {
+  margin-left: 0.4em;
+}
+
+.nftSelector {
+  width: 100%;
+  height: 100%;
+}
+
+.priceInputBox {
+}
+
+.sellingNftBox {
+}
+
+.sellingNftText {
+  margin-left: 0.4em;
+}
