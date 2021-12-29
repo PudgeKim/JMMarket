@@ -3,11 +3,14 @@ const axios = require("axios");
 
 export const UnknownError = "unknown error";
 export const NeedSignerError = "signer is required";
+export const NotEnoughAbcTokenError = "execution reverted: Not enough balance";
 export const NotEnoughNftBalanceError =
   "execution reverted: not enough nft balance";
 export const NotEnoughNftDepositError =
   "execution reverted: Not enough nft deposit";
 export const WrongNftIdError = "execution reverted: nftId must be lower than 8";
+export const WrongOrderIdError = "execution reverted: orderId does not exist";
+export const BuyOwnNftError = "execution reverted: you can't buy your nft";
 
 export class MarioNft {
   constructor(rpc, contractAddr, abi) {
@@ -149,16 +152,39 @@ export class MarioNft {
     }
   }
 
-  async depositNft(nftId) {
+  // async depositNft(nftId) {
+  //   if (this.isSigned) {
+  //     try {
+  //       await this.contract.depositNft(nftId);
+  //       return { success: true, message: "" };
+  //     } catch (e) {
+  //       if (e.data.message === NotEnoughNftBalanceError) {
+  //         return { success: false, message: NotEnoughNftBalanceError };
+  //       }
+  //       console.log("depositNft error: ", e);
+  //       return { success: false, message: UnknownError };
+  //     }
+  //   } else {
+  //     return { success: false, message: NeedSignerError };
+  //   }
+  // }
+
+  async buyNft(orderId, price) {
     if (this.isSigned) {
       try {
-        await this.contract.depositNft(nftId);
+        await this.contract.buyNft(orderId, price);
         return { success: true, message: "" };
       } catch (e) {
-        if (e.data.message === NotEnoughNftBalanceError) {
+        if (e.data.message === WrongNftIdError) {
+          return { success: false, message: WrongNftIdError };
+        }
+        if (e.data.message === BuyOwnNftError) {
+          return { success: false, message: BuyOwnNftError };
+        }
+        if (e.data.message === NotEnoughAbcTokenError) {
           return { success: false, message: NotEnoughNftBalanceError };
         }
-        console.log("depositNft error: ", e);
+        console.log("buyNft error: ", e);
         return { success: false, message: UnknownError };
       }
     } else {

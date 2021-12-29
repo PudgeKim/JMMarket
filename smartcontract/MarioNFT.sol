@@ -161,6 +161,8 @@ contract MarioNFT is ERC1155, Ownable {
     function buyNft(uint256 orderId, uint256 price) public {
         require(nftSoldMap[orderId].orderId != 0, "orderId does not exist");
         require(msg.sender != nftSoldMap[orderId].owner, "you can't buy your nft");
+        
+        
         _checkTokenBalance(msg.sender, price);
 
         // 유저로부터 돈을 받고 (approve 필요함!)

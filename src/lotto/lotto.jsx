@@ -98,20 +98,6 @@ export default function Lotto() {
         setModalClose={setModalClose}
         nftInfo={nftInfo}
       />
-
-      <button
-        onClick={async () => {
-          console.log("marioNft: ", marioNft);
-          console.log("uri: ", marioNft.baseUri);
-          console.log(
-            "success get: ",
-            (await marioNft.getMetadataFromIpfs(1)).data
-          );
-          console.log("curAmount: ", await marioNft.getAllNftCurrentAmount());
-        }}
-      >
-        cc
-      </button>
     </div>
   );
 }

@@ -72,7 +72,7 @@ export default function SellNft({
       }
     } else {
       alert(
-        "판매 주문이 성공적으로 등록되었습니다. 트랜잭션 완료까지 시간이 걸릴 수 있습니다."
+        "판매 주문이 등록되었습니다. 트랜잭션 완료까지 시간이 소요될 수 있습니다."
       );
     }
   };
@@ -107,13 +107,27 @@ export default function SellNft({
     sellPrice.current = e.target.value;
   };
 
-  const priceInputBox = () => {
-    return (
-      <div className={styles.priceInputBox}>
-        <input type="text" id="sellPrice" onChange={sellPriceHandler} />
-      </div>
-    );
-  };
+  const priceInputBox = (
+    <div className={styles.priceInputBox}>
+      <input type="text" id="sellPrice" onChange={sellPriceHandler} />
+    </div>
+  );
+
+  const inputSellNftBox = (
+    <div>
+      <h2 className={styles.sellNftText}>NFT 판매</h2>
+      {selectBox()}
+      {priceInputBox}
+      <button
+        className={styles.sellNftBtn}
+        onClick={() => {
+          sellNftHandler(selectedNft.current, sellPrice.current);
+        }}
+      >
+        sellNft
+      </button>
+    </div>
+  );
 
   marioNft.getContract().on("SellNftEvent", (seller, orderId, nftId, price) => {
     if (
@@ -130,16 +144,7 @@ export default function SellNft({
     <div className={styles.container}>
       {sellNftList.length === 0 ? null : sellingNftBox()}
 
-      <h2 className={styles.sellNftText}>NFT 판매</h2>
-      {selectBox()}
-      {priceInputBox()}
-      <button
-        onClick={() => {
-          sellNftHandler(selectedNft.current, sellPrice.current);
-        }}
-      >
-        sellNft
-      </button>
+      {possessNftList.length === 0 ? null : inputSellNftBox}
     </div>
   );
 }

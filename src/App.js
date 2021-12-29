@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NftDetail from "./nft-detail/nftDetail";
+
 import Header from "./header/header";
 import Lotto from "./lotto/lotto";
 import MainBody from "./main-body/mainBody";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { MarioNft } from "./helper/marioNft";
 import Account from "./account/account";
-import { rpc, rpcAlchemy, contractAddress } from "./helper/contractMetadata";
+import { rpcAlchemy, contractAddress } from "./helper/contractMetadata";
 import MarioNftAbi from "./helper/marioNftAbi.json";
 import Explore from "./explore/explore";
-import SellDetail from "./sell-detail/sellDetail";
+import SellDetail from "./explore/sell-detail/sellDetail";
+import NftDetail from "./main-body/nft-detail/nftDetail";
 
-//export const MarioNftContext = createContext("Default Value");
 export const MetaProviderContext = createContext({});
 export const MetaSignerContext = createContext({});
 

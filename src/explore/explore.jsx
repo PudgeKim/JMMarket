@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { useContext, useState } from "react/cjs/react.development";
-import { MarioNftContext } from "../App";
+import { useState } from "react/cjs/react.development";
 import styles from "./explore.module.css";
 import SellNftCard from "./sellNftCard";
 import { ethers } from "ethers";

@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-export const contractAddress = "0xaED0f2D2bae7968C5FB6eA7F360461cEB7a303Fd";
+export const contractAddress = "0x5F77C69c6A5eAaC5706De72458E72e2174A7836A";
 
 export const rpc = "https://rpc-mumbai.maticvigil.com/";
 export const rpcAlchemy = process.env.REACT_APP_RPC_ALCHEMY;
