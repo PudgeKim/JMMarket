@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { MarioNftContext } from "../App";
 import styles from "./mainBody.module.css";
 import NftBriefCard from "./nftBriefCard";
+import { marioNft } from "../App";
 
 export default function MainBody() {
   const [cards, setCards] = useState([]);
-  const marioNft = useContext(MarioNftContext);
   const navigate = useNavigate();
 
   useEffect(() => {

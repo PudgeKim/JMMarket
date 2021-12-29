@@ -9,9 +9,9 @@ import {
 import styles from "./lotto.module.css";
 import Modal from "./modal";
 import TxHashCard from "./txHashCard";
+import { marioNft } from "../App";
 
 export default function Lotto() {
-  const marioNft = useContext(MarioNftContext);
   const { metaProvider, setMetaProvider } = useContext(MetaProviderContext);
   const { metaSigner, setMetaSigner } = useContext(MetaSignerContext);
   const [txHash, setTxHash] = useState("");

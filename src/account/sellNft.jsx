@@ -10,6 +10,7 @@ import {
 import styles from "./sellNft.module.css";
 import { ethers } from "ethers";
 import SellNftCard from "./nftCards/sellNftCard";
+import { marioNft } from "../App";
 
 // nftList: 사용자가 소유하고 있는 nft들
 export default function SellNft({
@@ -17,7 +18,6 @@ export default function SellNft({
   sellNftList,
   currentAccount,
 }) {
-  const marioNft = useContext(MarioNftContext);
   const { metaSigner, setMetaSigner } = useContext(MetaSignerContext);
   const selectedNft = useRef(0);
   const sellPrice = useRef(0);

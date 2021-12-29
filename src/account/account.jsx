@@ -8,9 +8,9 @@ import {
 } from "../App";
 import SellNft from "./sellNft";
 import PossessNftCard from "./nftCards/possessNftCard";
+import { marioNft } from "../App";
 
 export default function Account() {
-  const marioNft = useContext(MarioNftContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { metaProvider, setMetaProvider } = useContext(MetaProviderContext);
   const { metaSigner, setMetaSigner } = useContext(MetaSignerContext);

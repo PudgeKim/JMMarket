@@ -5,9 +5,9 @@ import styles from "./explore.module.css";
 import SellNftCard from "./sellNftCard";
 import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
+import { marioNft } from "../App";
 
 export default function Explore() {
-  const marioNft = useContext(MarioNftContext);
   const [allSellingList, setAllSellingList] = useState([]);
   const navigate = useNavigate();
 
