@@ -7,7 +7,13 @@ export default function Menu() {
   return (
     <div className={styles.menu}>
       <ul className={styles.menuList}>
-        <li>Explore</li>
+        <li
+          onClick={() => {
+            navigate("/explore");
+          }}
+        >
+          Explore
+        </li>
         <li
           onClick={() => {
             navigate("/lotto");

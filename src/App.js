@@ -8,6 +8,8 @@ import { MarioNft } from "./helper/marioNft";
 import Account from "./account/account";
 import { rpc, rpcAlchemy, contractAddress } from "./helper/contractMetadata";
 import MarioNftAbi from "./helper/marioNftAbi.json";
+import Explore from "./explore/explore";
+import SellDetail from "./sell-detail/sellDetail";
 
 export const MarioNftContext = createContext("Default Value");
 export const MetaProviderContext = createContext({});
@@ -20,12 +22,6 @@ function App() {
   const [metaProvider, setMetaProvider] = useState(null);
   const [metaSigner, setMetaSigner] = useState(null);
 
-  // useEffect(() => {
-  //   const init = async () => {
-  //     await marioNft.init();
-  //   };
-  //   init();
-  // }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -48,21 +44,6 @@ function App() {
           />
 
           <Route
-            path="lotto"
-            element={
-              <MetaSignerContext.Provider value={{ metaSigner, setMetaSigner }}>
-                <MetaProviderContext.Provider
-                  value={{ metaProvider, setMetaProvider }}
-                >
-                  <MarioNftContext.Provider value={marioNft}>
-                    <Lotto />
-                  </MarioNftContext.Provider>
-                </MetaProviderContext.Provider>
-              </MetaSignerContext.Provider>
-            }
-          />
-
-          <Route
             path="nft-detail"
             element={
               <MetaSignerContext.Provider value={{ metaSigner, setMetaSigner }}>
@@ -71,6 +52,51 @@ function App() {
                 >
                   <MarioNftContext.Provider value={marioNft}>
                     <NftDetail />
+                  </MarioNftContext.Provider>
+                </MetaProviderContext.Provider>
+              </MetaSignerContext.Provider>
+            }
+          />
+
+          <Route
+            path="explore"
+            element={
+              <MetaSignerContext.Provider value={{ metaSigner, setMetaSigner }}>
+                <MetaProviderContext.Provider
+                  value={{ metaProvider, setMetaProvider }}
+                >
+                  <MarioNftContext.Provider value={marioNft}>
+                    <Explore />
+                  </MarioNftContext.Provider>
+                </MetaProviderContext.Provider>
+              </MetaSignerContext.Provider>
+            }
+          />
+
+          <Route
+            path="sell-detail"
+            element={
+              <MetaSignerContext.Provider value={{ metaSigner, setMetaSigner }}>
+                <MetaProviderContext.Provider
+                  value={{ metaProvider, setMetaProvider }}
+                >
+                  <MarioNftContext.Provider value={marioNft}>
+                    <SellDetail />
+                  </MarioNftContext.Provider>
+                </MetaProviderContext.Provider>
+              </MetaSignerContext.Provider>
+            }
+          />
+
+          <Route
+            path="lotto"
+            element={
+              <MetaSignerContext.Provider value={{ metaSigner, setMetaSigner }}>
+                <MetaProviderContext.Provider
+                  value={{ metaProvider, setMetaProvider }}
+                >
+                  <MarioNftContext.Provider value={marioNft}>
+                    <Lotto />
                   </MarioNftContext.Provider>
                 </MetaProviderContext.Provider>
               </MetaSignerContext.Provider>

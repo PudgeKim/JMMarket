@@ -219,9 +219,10 @@ export class MarioNft {
   async getAllSellingNftList() {
     try {
       const allNftList = await this.contract.getAllSellingNftList();
-      console.log("allList: ", allNftList);
+      return allNftList;
     } catch (e) {
       console.log("allNftErr: ", e);
+      return [];
     }
   }
 
@@ -232,6 +233,7 @@ export class MarioNft {
       return nftList;
     } catch (e) {
       console.log("nftListERr: ", e);
+      return [];
     }
   }
 

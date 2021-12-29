@@ -1,8 +1,8 @@
 import { React, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { MarioNftContext } from "../App";
-import Card from "../card/card";
 import styles from "./mainBody.module.css";
+import NftBriefCard from "./nftBriefCard";
 
 export default function MainBody() {
   const [cards, setCards] = useState([]);
@@ -23,7 +23,7 @@ export default function MainBody() {
   return (
     <ul className={styles.cardList}>
       {cards.map((card, idx) => (
-        <Card
+        <NftBriefCard
           key={idx}
           imgPath={card.imgPath}
           nftId={idx + 1}

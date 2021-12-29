@@ -3,10 +3,11 @@
   height: 4em;
   line-height: 3.5em;
   text-align: center;
-  border: solid 1px rgb(21, 178, 229);
+  border: 1px solid rgb(229, 232, 235);
   border-radius: 0.8em;
   background-color: rgba(21, 178, 229, 0.06);
   margin: 1em;
+  cursor: pointer;
 }
 
 .text {

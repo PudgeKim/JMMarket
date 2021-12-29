@@ -1,10 +1,9 @@
 import { ethers } from "ethers";
 
-export const contractAddress = "0x5C2840A403192beBe98Cf6113BF07Cc30aEA7164";
+export const contractAddress = "0xaED0f2D2bae7968C5FB6eA7F360461cEB7a303Fd";
 
 export const rpc = "https://rpc-mumbai.maticvigil.com/";
-export const rpcAlchemy =
-  "https://polygon-mumbai.g.alchemy.com/v2/ihAk8v60WilF57aj9Jh0baultadb1IaI";
+export const rpcAlchemy = process.env.REACT_APP_RPC_ALCHEMY;
 export const provider = new ethers.providers.JsonRpcProvider(rpc);
 
 export const abi = [
