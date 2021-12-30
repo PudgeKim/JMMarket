@@ -1,15 +1,36 @@
 import React from "react";
 import styles from "./buyButton.module.css";
-import { marioNft } from "../../App";
+import { abcToken, marioNft } from "../../App";
 import {
   BuyOwnNftError,
   NeedSignerError,
   NotEnoughAbcTokenError,
   UnknownError,
-} from "../../helper/marioNft";
+} from "../../helper/errors";
 import { ethers } from "ethers";
+import { contractAddress } from "../../helper/contractMetadata";
 
-export default function BuyButton({ orderId, price }) {
+export default function BuyButton({ orderId, price, metaSigner }) {
+  const approveHandler = async () => {
+    const priceBigNumber = ethers.utils.parseEther(String(price));
+    const { success, message } = await abcToken.approve(
+      contractAddress,
+      priceBigNumber
+    );
+
+    if (success === false) {
+      switch (message) {
+        case NeedSignerError:
+          alert("Account페이지에서 메타마스크와 연결이 필요합니다.");
+          break;
+        default:
+          alert("알 수 없는 에러가 발생하였습니다.", UnknownError);
+      }
+    } else {
+      console.log("approve success!");
+    }
+  };
+
   const buyNftHandler = async () => {
     const priceBigNumber = ethers.utils.parseEther(String(price));
     const { success, message } = await marioNft.buyNft(orderId, priceBigNumber);
@@ -38,8 +59,9 @@ export default function BuyButton({ orderId, price }) {
   return (
     <div
       className={styles.btn}
-      onClick={() => {
-        buyNftHandler(orderId, price);
+      onClick={async () => {
+        approveHandler();
+        //buyNftHandler(orderId, price);
       }}
     >
       <span className={styles.text}>BUY</span>

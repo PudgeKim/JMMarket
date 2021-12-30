@@ -1,5 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { useContext } from "react/cjs/react.development";
+import { MetaSignerContext } from "../../App";
 import AttributeCard from "../../base-detail/attributeCard";
 import BaseDetail from "../../base-detail/baseDetail";
 import BuyButton from "./buyButton";
@@ -8,12 +10,13 @@ import styles from "./sellDetail.module.css";
 export default function SellDetail() {
   const { state } = useLocation();
   const { seller, timestamp, orderId, price } = state;
+  const { metaSigner, setMetaSigner } = useContext(MetaSignerContext);
   const blockInfoObj = { timestamp: timestamp };
 
   const blockInfoBox = (
     <div className={styles.blockInfo}>
       <AttributeCard attribute={blockInfoObj} />
-      <BuyButton orderId={orderId} price={price} />
+      <BuyButton orderId={orderId} price={price} metaSigner={metaSigner} />
     </div>
   );
 

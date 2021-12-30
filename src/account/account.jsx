@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./account.module.css";
 import { ethers } from "ethers";
 import {
+  abcToken,
   MarioNftContext,
   MetaProviderContext,
   MetaSignerContext,
@@ -92,6 +93,10 @@ export default function Account() {
 
     if (!marioNft.checkIsSigned()) {
       marioNft.setContractWithSigner(tempSigner); // metaSigner는 setState의 비동기로 인해 제대로 안될 수도
+    }
+
+    if (!abcToken.checkIsSigned()) {
+      abcToken.setContractWithSigner(tempSigner);
     }
   };
 

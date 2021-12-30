@@ -8,7 +8,7 @@ import {
   UnknownError,
   WithdrawlError,
   WrongNftIdError,
-} from "../helper/marioNft";
+} from "../helper/errors";
 import styles from "./sellNft.module.css";
 import { ethers } from "ethers";
 import SellNftCard from "./nftCards/sellNftCard";
@@ -218,13 +218,6 @@ export default function SellNft({
 
       {possessNftList.length === 0 ? null : inputSellNftBox}
       {currentAccount === null ? null : withdrawBox}
-      <button
-        onClick={() => {
-          console.log(withdrawAmount);
-        }}
-      >
-        dd
-      </button>
     </div>
   );
 }
