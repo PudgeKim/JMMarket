@@ -11,6 +11,8 @@ export const NotEnoughNftDepositError =
 export const WrongNftIdError = "execution reverted: nftId must be lower than 8";
 export const WrongOrderIdError = "execution reverted: orderId does not exist";
 export const BuyOwnNftError = "execution reverted: you can't buy your nft";
+export const WithdrawlError =
+  "execution reverted: The withdrawl amount couldn't be higher than your total balance";
 
 export class MarioNft {
   constructor(rpc, contractAddr, abi) {
@@ -260,6 +262,37 @@ export class MarioNft {
     } catch (e) {
       console.log("nftListERr: ", e);
       return [];
+    }
+  }
+
+  async getSellerTokenBalance() {
+    if (this.isSigned) {
+      try {
+        const balance = await this.contract.getSellerTokenBalance();
+        return { success: true, message: balance.toString() };
+      } catch (e) {
+        console.log(e);
+        return { success: false, message: UnknownError };
+      }
+    } else {
+      return { success: false, message: NeedSignerError };
+    }
+  }
+
+  async withdraw(amount) {
+    if (this.isSigned) {
+      try {
+        await this.contract.withdraw(amount);
+        return { success: true, message: "" };
+      } catch (e) {
+        if (e.data.message === WithdrawlError) {
+          return { success: false, message: WithdrawlError };
+        }
+        console.log("withdrawErr: ", e);
+        return { success: false, message: UnknownError };
+      }
+    } else {
+      return { success: false, message: NeedSignerError };
     }
   }
 

@@ -28,3 +28,20 @@
 .sellingNftText {
   margin-left: 0.4em;
 }
+
+.withdrawText {
+  margin-left: 0.4em;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.withdrawInput {
+  display: block;
+  margin-left: 0.4em;
+  margin-top: 0.6em;
+}
+
+.withdrawBtn {
+  margin-left: 0.4em;
+  margin-top: 0.2em;
+}

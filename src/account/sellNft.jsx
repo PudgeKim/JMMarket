@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useContext, useState } from "react/cjs/react.development";
 import { MarioNftContext, MetaSignerContext } from "../App";
 import {
+  NeedSignerError,
   NotEnoughNftBalanceError,
   NotEnoughNftDepositError,
   UnknownError,
+  WithdrawlError,
   WrongNftIdError,
 } from "../helper/marioNft";
 import styles from "./sellNft.module.css";
@@ -21,6 +23,22 @@ export default function SellNft({
   const { metaSigner, setMetaSigner } = useContext(MetaSignerContext);
   const selectedNft = useRef(0);
   const sellPrice = useRef(0);
+  const withdrawAmount = useRef(0);
+  const [sellerBalance, setSellerBalance] = useState(0);
+
+  useEffect(() => {
+    const getSellerBalance = async () => {
+      const { success, message } = await marioNft.getSellerTokenBalance();
+      if (success === false) {
+        alert("판매자 잔고를 불러오는데 실패하였습니다.");
+      } else {
+        setSellerBalance(message);
+      }
+    };
+    if (currentAccount != null && marioNft.checkIsSigned()) {
+      getSellerBalance();
+    }
+  }, [currentAccount]);
 
   // 판매중인 NFT들
   const sellingNftBox = () => {
@@ -113,6 +131,7 @@ export default function SellNft({
     </div>
   );
 
+  // NFT판매를 위해 판매금액과 판매물품 입력하는 Box
   const inputSellNftBox = (
     <div>
       <h2 className={styles.sellNftText}>NFT 판매</h2>
@@ -125,6 +144,59 @@ export default function SellNft({
         }}
       >
         sellNft
+      </button>
+    </div>
+  );
+
+  const withdrawToken = async () => {
+    if (!withdrawAmount || isNaN(withdrawAmount)) {
+      alert("숫자만 입력가능합니다.");
+      return;
+    }
+    if (withdrawAmount.current == 0) {
+      alert("0보다 큰 금액을 입력하세요.");
+      return;
+    }
+    const withdrawAmountBigNumber = ethers.utils.parseEther(
+      String(withdrawAmount.current)
+    );
+    const { success, message } = await marioNft.withdraw(
+      withdrawAmountBigNumber
+    );
+
+    if (success === false) {
+      switch (message) {
+        case WithdrawlError:
+          alert("출금하려는 금액이 최대치보다 많습니다.");
+          break;
+        case NeedSignerError:
+          alert("AccountPage에서 메타마스크와 연결이 필요합니다.");
+          break;
+        default:
+          alert("알 수 없는 에러가 발생하였습니다. ");
+      }
+    } else {
+      alert(
+        "출금 신청이 완료되었습니다. 트랜잭션 완료까지 시간이 소요될 수 있습니다."
+      );
+    }
+  };
+
+  const withdrawAmountHandler = (e) => {
+    withdrawAmount.current = e.target.value;
+  };
+
+  const withdrawBox = (
+    <div className={styles.withdrawBox}>
+      <h2 className={styles.sellNftText}>판매 금액</h2>
+      <span className={styles.withdrawText}>{sellerBalance} ABC</span>
+      <input
+        type="text"
+        className={styles.withdrawInput}
+        onChange={withdrawAmountHandler}
+      />
+      <button className={styles.withdrawBtn} onClick={withdrawToken}>
+        출금
       </button>
     </div>
   );
@@ -145,6 +217,14 @@ export default function SellNft({
       {sellNftList.length === 0 ? null : sellingNftBox()}
 
       {possessNftList.length === 0 ? null : inputSellNftBox}
+      {currentAccount === null ? null : withdrawBox}
+      <button
+        onClick={() => {
+          console.log(withdrawAmount);
+        }}
+      >
+        dd
+      </button>
     </div>
   );
 }

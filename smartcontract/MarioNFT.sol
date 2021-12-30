@@ -134,8 +134,8 @@ contract MarioNFT is ERC1155, Ownable {
     // seller가 판매금 출금
     function withdraw(uint256 amount) public {
         require(_sellerTokenBalances[msg.sender] >= amount, "The withdrawl amount couldn't be higher than your total balance");
-        _sendAbcToken(msg.sender, amount);
         _sellerTokenBalances[msg.sender] -= amount;
+        _sendAbcToken(msg.sender, amount);
     }
 
     function sellNft(uint256 nftId, uint256 price) public {
