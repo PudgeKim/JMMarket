@@ -20,6 +20,8 @@ export default function Account() {
   const [possessNftList, setNftList] = useState([]);
   // 연결된 account가 판매중인 nft들
   const [sellNftList, setSellNftList] = useState([]);
+  // nft판매 수익
+  const [sellerBalance, setSellerBalance] = useState(0);
 
   useEffect(() => {
     const getPossessNftList = async () => {
@@ -27,6 +29,14 @@ export default function Account() {
         currentAccount
       );
       setNftList(nftListWithAmount);
+    };
+    const getSellerBalance = async () => {
+      const { success, message } = await marioNft.getSellerTokenBalance();
+      if (success === false) {
+        alert("판매자 잔고를 불러오는데 실패하였습니다.");
+      } else {
+        setSellerBalance(message);
+      }
     };
 
     const getSellingNftList = async () => {
@@ -55,7 +65,10 @@ export default function Account() {
       getPossessNftList();
       getSellingNftList();
     }
-  }, [metaSigner]); // metaSigner가 없으면 msg.sender는 0x0000000으로 나오기 때문에 metaSigner를 감지
+    if (currentAccount != null && marioNft.checkIsSigned()) {
+      getSellerBalance();
+    }
+  }, [currentAccount, metaSigner]); // metaSigner가 없으면 msg.sender는 0x0000000으로 나오기 때문에 metaSigner를 감지
 
   const connectWalletHandler = async () => {
     if (window.ethereum) {
@@ -140,6 +153,7 @@ export default function Account() {
         possessNftList={possessNftList}
         sellNftList={sellNftList}
         currentAccount={currentAccount}
+        sellerBalance={sellerBalance}
       />
     </div>
   );

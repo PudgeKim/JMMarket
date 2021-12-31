@@ -60,11 +60,17 @@ export default function BuyButton({ orderId, price, metaSigner }) {
     <div
       className={styles.btn}
       onClick={async () => {
-        approveHandler();
-        //buyNftHandler(orderId, price);
+        buyNftHandler(orderId, price);
       }}
     >
       <span className={styles.text}>BUY</span>
+      <button
+        onClick={() => {
+          approveHandler();
+        }}
+      >
+        approve
+      </button>
     </div>
   );
 }

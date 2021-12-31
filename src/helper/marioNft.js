@@ -265,7 +265,8 @@ export class MarioNft {
     if (this.isSigned) {
       try {
         const balance = await this.contract.getSellerTokenBalance();
-        return { success: true, message: balance.toString() };
+        const converted = ethers.utils.formatEther(balance);
+        return { success: true, message: converted };
       } catch (e) {
         console.log(e);
         return { success: false, message: UnknownError };

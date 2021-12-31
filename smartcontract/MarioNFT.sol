@@ -134,8 +134,8 @@ contract MarioNFT is ERC1155, Ownable {
     // seller가 판매금 출금
     function withdraw(uint256 amount) public {
         require(_sellerTokenBalances[msg.sender] >= amount, "The withdrawl amount couldn't be higher than your total balance");
-        _sellerTokenBalances[msg.sender] -= amount;
         _sendAbcToken(msg.sender, amount);
+        _sellerTokenBalances[msg.sender] -= amount;
     }
 
     function sellNft(uint256 nftId, uint256 price) public {
@@ -161,11 +161,9 @@ contract MarioNFT is ERC1155, Ownable {
     function buyNft(uint256 orderId, uint256 price) public {
         require(nftSoldMap[orderId].orderId != 0, "orderId does not exist");
         require(msg.sender != nftSoldMap[orderId].owner, "you can't buy your nft");
-        
-        
         _checkTokenBalance(msg.sender, price);
 
-        // 유저로부터 돈을 받고 (approve 필요함!)
+        // user must approve before executing this code!
         IERC20(abcTokenAddress).transferFrom(msg.sender, address(this), price);
         
         uint256 nftId = nftSoldMap[orderId].nftId;

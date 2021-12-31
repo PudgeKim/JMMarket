@@ -19,26 +19,12 @@ export default function SellNft({
   possessNftList,
   sellNftList,
   currentAccount,
+  sellerBalance,
 }) {
   const { metaSigner, setMetaSigner } = useContext(MetaSignerContext);
   const selectedNft = useRef(0);
   const sellPrice = useRef(0);
   const withdrawAmount = useRef(0);
-  const [sellerBalance, setSellerBalance] = useState(0);
-
-  useEffect(() => {
-    const getSellerBalance = async () => {
-      const { success, message } = await marioNft.getSellerTokenBalance();
-      if (success === false) {
-        alert("판매자 잔고를 불러오는데 실패하였습니다.");
-      } else {
-        setSellerBalance(message);
-      }
-    };
-    if (currentAccount != null && marioNft.checkIsSigned()) {
-      getSellerBalance();
-    }
-  }, [currentAccount]);
 
   // 판매중인 NFT들
   const sellingNftBox = () => {
@@ -149,14 +135,15 @@ export default function SellNft({
   );
 
   const withdrawToken = async () => {
-    if (!withdrawAmount || isNaN(withdrawAmount)) {
-      alert("숫자만 입력가능합니다.");
-      return;
-    }
     if (withdrawAmount.current == 0) {
       alert("0보다 큰 금액을 입력하세요.");
       return;
     }
+    if (isNaN(withdrawAmount.current)) {
+      alert("숫자만 입력가능합니다.");
+      return;
+    }
+
     const withdrawAmountBigNumber = ethers.utils.parseEther(
       String(withdrawAmount.current)
     );
